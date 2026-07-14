@@ -16,6 +16,7 @@ ALLOWED_HOSTS = []
 
 # Aplicações instaladas
 INSTALLED_APPS = [
+    "jet",
     "django.contrib.admin",         # Interface de administração
     "django.contrib.auth",          # Sistema de autenticação e permissões
     "django.contrib.contenttypes",  # Relações genéricas entre modelos
@@ -84,4 +85,5 @@ USE_I18N = True
 USE_TZ = True
 
 # Arquivos estáticos
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
