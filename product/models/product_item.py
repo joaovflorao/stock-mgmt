@@ -1,6 +1,7 @@
 from core.schemas import BaseModel
 from django.db import models
 from .product_base import ProductBase
+from .attribute_name import AttributeName
 
 
 class ProductItem(BaseModel):
@@ -67,5 +68,5 @@ class ProductItem(BaseModel):
             clean_key = key.strip().title()
             clean_value = str(value).strip()
             normalized[clean_key] = clean_value
-            ProductAttributeName.objects.get_or_create(name=clean_key)
+            AttributeName.objects.get_or_create(name=clean_key)
         return normalized
