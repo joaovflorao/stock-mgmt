@@ -13,6 +13,7 @@ DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 
 # Hosts permitidos
 ALLOWED_HOSTS = []
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # Aplicações instaladas
 INSTALLED_APPS = [
@@ -23,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",      # Suporte a sessões de usuário
     "django.contrib.messages",      # Sistema de mensagens temporárias (flash messages)
     "django.contrib.staticfiles",   # Gerenciamento de arquivos estáticos (CSS, JS, imagens)
+    "product",
 ]
 
 # Middlewares
