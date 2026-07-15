@@ -2,6 +2,19 @@ from core.schemas import BaseModel
 from django.db import models
 from .product_base import ProductBase
 from .attribute_name import AttributeName
+from django_jsonform.models.fields import JSONField
+
+
+ATTRIBUTES_SCHEMA = {
+    "type": "array",
+    "items": {
+        "type": "object",
+        "keys": {
+            "key": {"type": "string", "title": "Nome"},
+            "value": {"type": "string", "title": "Valor"},
+        },
+    },
+}
 
 
 class ProductItem(BaseModel):
@@ -29,9 +42,10 @@ class ProductItem(BaseModel):
         null=True,
         unique=True,
     )
-    attributes = models.JSONField(
-        verbose_name="Atributos",
-        default=dict,
+    attributes = JSONField(
+        verbose_name="Características",
+        schema=ATTRIBUTES_SCHEMA,
+        default=list,
         blank=True,
     )
     cost_price = models.DecimalField(
@@ -62,11 +76,11 @@ class ProductItem(BaseModel):
         super().save(*args, **kwargs)
 
     @staticmethod
-    def _normalize_attributes(attributes: dict) -> dict:
-        normalized = {}
-        for key, value in attributes.items():
-            clean_key = key.strip().title()
-            clean_value = str(value).strip()
-            normalized[clean_key] = clean_value
+    def _normalize_attributes(attributes) -> list:
+        normalized = []
+        for pair in attributes:
+            clean_key = pair["key"].strip().title()
+            clean_value = str(pair["value"]).strip()
+            normalized.append({"key": clean_key, "value": clean_value})
             AttributeName.objects.get_or_create(name=clean_key)
         return normalized
