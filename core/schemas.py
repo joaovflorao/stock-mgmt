@@ -14,6 +14,6 @@ class BaseModel(models.Model):
         auto_now=True,
     )
     is_active = models.BooleanField(
-        verbose_name="Ativo?",
+        verbose_name="Ativo",
         default=True,
     )
